@@ -18,7 +18,7 @@ import io.quarkus.gradle.tasks.QuarkusBuild
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
-  id("io.quarkus")
+  alias(libs.plugins.quarkus)
   id("nessie-conventions-quarkus")
   id("nessie-jacoco")
 }
