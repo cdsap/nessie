@@ -26,7 +26,7 @@ opentracing = "0.33.0"
 picocli = "4.7.5"
 protobuf = "3.25.3"
 quarkusPlatform = "3.9.2"
-quarkusPlugin = "3.9.2"
+quarkusPlugin = "4.0-SNAPSHOT"
 slf4j = "1.7.36"
 undertow = "2.2.28.Final"
 
@@ -118,10 +118,10 @@ picocli = { module = "info.picocli:picocli-codegen", version.ref = "picocli" }
 picocli-codegen = { module = "info.picocli:picocli-codegen", version.ref = "picocli" }
 postgresql = { module = "org.postgresql:postgresql", version = "42.7.3" }
 protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf" }
-quarkus-amazon-services-bom = { module = "io.quarkus.platform:quarkus-amazon-services-bom", version.ref = "quarkusPlatform" }
-quarkus-bom = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quarkusPlatform" }
-quarkus-cassandra-bom = { module = "io.quarkus.platform:quarkus-cassandra-bom", version.ref = "quarkusPlatform" }
-quarkus-google-cloud-services-bom = { module = "io.quarkus.platform:quarkus-google-cloud-services-bom", version.ref = "quarkusPlatform" }
+quarkus-amazon-services-bom = { module = "io.quarkus.platform:quarkus-amazon-services-bom", version = "3.9.2" }
+quarkus-bom = { module = "io.quarkus:quarkus-bom", version.ref = "quarkusPlatform" }
+quarkus-cassandra-bom = { module = "io.quarkus.platform:quarkus-cassandra-bom", version = "3.9.2" }
+quarkus-google-cloud-services-bom = { module = "io.quarkus.platform:quarkus-google-cloud-services-bom", version = "3.9.2" }
 quarkus-logging-sentry = { module = "io.quarkiverse.loggingsentry:quarkus-logging-sentry", version = "2.0.5" }
 rest-assured = { module = "io.rest-assured:rest-assured", version = "5.4.0" }
 rocksdb-jni = { module = "org.rocksdb:rocksdbjni", version = "9.0.0" }

@@ -29,27 +29,30 @@ pluginManagement {
   repositories {
     mavenCentral() // prefer Maven Central, in case Gradle's repo has issues
     gradlePluginPortal()
+    maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
     if (System.getProperty("withMavenLocal").toBoolean()) {
       mavenLocal()
     }
   }
 }
-
 dependencyResolutionManagement {
   repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
   repositories {
     mavenCentral()
+    maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
+
     gradlePluginPortal()
     if (System.getProperty("withMavenLocal").toBoolean()) {
       mavenLocal()
     }
+    mavenLocal()
     maven {
       name = "Apache Snapshots"
       url = URI("https://repository.apache.org/content/repositories/snapshots/")
       mavenContent { snapshotsOnly() }
       metadataSources {
-        // Workaround for
-        // https://youtrack.jetbrains.com/issue/IDEA-327421/IJ-fails-to-import-Gradle-project-with-dependency-with-classifier
+// Workaround for
+// https://youtrack.jetbrains.com/issue/IDEA-327421/IJ-fails-to-import-Gradle-project-with-dependency-with-classifier
         ignoreGradleMetadataRedirection()
         mavenPom()
       }
@@ -60,49 +63,18 @@ dependencyResolutionManagement {
 plugins {
   id("com.gradle.develocity") version ("3.17")
   if (System.getenv("CI") != null || System.getProperty("allow-java-download").toBoolean()) {
-    // Enable automatic Java toolchain download in CI or when explicitly requested by the user.
-    // If in doubt, install the required Java toolchain manually, preferably using a "proper"
-    // package manager. The downside of letting Gradle automatically download toolchains is that
-    // these will only get downloaded once, but not automatically updated.
+// Enable automatic Java toolchain download in CI or when explicitly requested by the user.
+// If in doubt, install the required Java toolchain manually, preferably using a "proper"
+// package manager. The downside of letting Gradle automatically download toolchains is that
+// these will only get downloaded once, but not automatically updated.
     id("org.gradle.toolchains.foojay-resolver-convention") version ("0.8.0")
   }
 }
 
-develocity {
-  if (System.getenv("CI") != null) {
-    buildScan {
-      termsOfUseUrl = "https://gradle.com/terms-of-service"
-      termsOfUseAgree = "yes"
-      // Add some potentially interesting information from the environment
-      listOf(
-          "GITHUB_ACTION_REPOSITORY",
-          "GITHUB_ACTOR",
-          "GITHUB_BASE_REF",
-          "GITHUB_HEAD_REF",
-          "GITHUB_JOB",
-          "GITHUB_REF",
-          "GITHUB_REPOSITORY",
-          "GITHUB_RUN_ID",
-          "GITHUB_RUN_NUMBER",
-          "GITHUB_SHA",
-          "GITHUB_WORKFLOW"
-        )
-        .forEach { e ->
-          val v = System.getenv(e)
-          if (v != null) {
-            value(e, v)
-          }
-        }
-      val ghUrl = System.getenv("GITHUB_SERVER_URL")
-      if (ghUrl != null) {
-        val ghRepo = System.getenv("GITHUB_REPOSITORY")
-        val ghRunId = System.getenv("GITHUB_RUN_ID")
-        link("Summary", "$ghUrl/$ghRepo/actions/runs/$ghRunId")
-        link("PRs", "$ghUrl/$ghRepo/pulls")
-      }
-    }
-  } else {
-    buildScan { publishing { onlyIf { gradle.startParameter.isBuildScan } } }
+gradleEnterprise {
+  server = "http://ge.solutions-team.gradle.com"
+  buildScan {
+    publishAlways()
   }
 }
 
@@ -181,10 +153,10 @@ if (gradle.parent == null) {
       allScalaVersions.add(scalaVersion)
       val artifactId = "nessie-spark-extensions-${sparkVersion}_$scalaVersion"
       nessieProject(
-          artifactId,
-          groupIdIntegrations,
-          file("integrations/spark-extensions/v${sparkVersion}")
-        )
+        artifactId,
+        groupIdIntegrations,
+        file("integrations/spark-extensions/v${sparkVersion}")
+      )
         .buildFileName = "../build.gradle.kts"
       if (first) {
         first = false

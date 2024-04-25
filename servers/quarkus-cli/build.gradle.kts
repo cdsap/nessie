@@ -16,9 +16,8 @@
 
 import io.quarkus.gradle.tasks.QuarkusBuild
 import org.apache.tools.ant.taskdefs.condition.Os
-
 plugins {
-  alias(libs.plugins.quarkus)
+  id("io.quarkus")
   id("nessie-conventions-quarkus")
   id("nessie-jacoco")
 }
@@ -56,7 +55,7 @@ dependencies {
   implementation(platform(libs.jackson.bom))
   implementation("com.fasterxml.jackson.core:jackson-databind")
   implementation("com.fasterxml.jackson.core:jackson-annotations")
-
+//
   implementation(libs.agroal.pool)
   implementation(libs.h2)
   implementation(libs.postgresql)

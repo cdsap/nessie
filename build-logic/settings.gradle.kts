@@ -25,6 +25,7 @@ dependencyResolutionManagement {
   repositories {
     mavenCentral()
     gradlePluginPortal()
+    maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
     if (System.getProperty("withMavenLocal").toBoolean()) {
       mavenLocal()
     }
