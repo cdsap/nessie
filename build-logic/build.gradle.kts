@@ -23,7 +23,7 @@ dependencies {
   implementation(baselibs.idea.ext)
   implementation(baselibs.shadow)
   implementation(baselibs.errorprone)
-  implementation("io.github.cdsap:gradle-application-plugin:4.0-SNAPSHOT")
+  implementation("io.github.cdsap:gradle-application-plugin:4.1-SNAPSHOT")
   testImplementation(platform(baselibs.junit.bom))
   testImplementation(baselibs.assertj.core)
   testImplementation("org.junit.jupiter:junit-jupiter-api")
